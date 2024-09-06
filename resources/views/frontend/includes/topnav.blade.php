@@ -6,7 +6,7 @@
 
 
 
-            <div class="col-md-6 text-left col-sm-12">
+            <div class="col-lg-6 col-md-4 text-left col-sm-12">
 
 
                 <div class="social-buttons">
@@ -37,10 +37,16 @@
 
             </div>
 
+        
 
-            <div class="col-md-6 col-sm-12 top_right">
+            <div class="col-lg-3 col-md-4 col-sm-12 contact_no">
+                <p>{{ $sitesetting->office_contact }}</p>
+            </div>
+
+
+            <div class="col-lg-3 col-md-4 col-sm-12 top_right">
                 
-                <p class="mt-3">{{ $sitesetting->office_contact }}</p>
+                
 
                 <form action="{{ route('search') }}" method="GET" class="search-form">
                     <input type="text" name="search" placeholder="Search..." required />
