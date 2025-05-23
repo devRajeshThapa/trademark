@@ -33,73 +33,85 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        Schema::defaultStringLength(191);
-        // $favicon = Favicon::latest()->first();
-        // View::share('favicon', $favicon);
+{
+    Schema::defaultStringLength(191);
 
-        //FAVICON for ALL PAGES
+    if (Schema::hasTable('favicons')) {
         $favicon = Favicon::first();
         View::share('favicon', $favicon);
+    }
 
-        //SITESETTING for ALL PAGES
+    if (Schema::hasTable('site_settings')) {
         $sitesetting = SiteSetting::first();
         View::share('sitesetting', $sitesetting);
+    }
 
+    View::composer('frontend.includes.navbar', function ($view) {
+        if (Schema::hasTable('countries') &&
+            Schema::hasTable('testimonials') &&
+            Schema::hasTable('courses') &&
+            Schema::hasTable('categories') &&
+            Schema::hasTable('blog_posts_categories') &&
+            Schema::hasTable('site_settings')) {
 
-
-
-        // View::composer('frontend.includes.topnav', function ($view) {
-        //     $sitesetting = SiteSetting::first();
-
-        //     $view->with('sitesetting', $sitesetting);
-
-        // });
-
-
-
-
-        //Global variable for Navbar
-        View::composer('frontend.includes.navbar', function ($view) {
             $countries = Country::all();
             $testimonials = Testimonial::all();
             $courses = Course::all();
             $categories = Category::all();
             $blogpostcategories = BlogPostsCategory::all();
-            $testPreparationPosts = Category::where('title', 'Test Prepration')->first()->posts;
-            $livingAbroadPosts = Category::where('title', 'Living Abroad')->first()->posts;
+
+            // Handle case if Category::where(...) returns null:
+            $testPreparationCategory = Category::where('title', 'Test Prepration')->first();
+            $testPreparationPosts = $testPreparationCategory ? $testPreparationCategory->posts : collect();
+
+            $livingAbroadCategory = Category::where('title', 'Living Abroad')->first();
+            $livingAbroadPosts = $livingAbroadCategory ? $livingAbroadCategory->posts : collect();
+
             $sitesetting = SiteSetting::first();
 
-            $view->with('countries', $countries);
-            $view->with('testimonials', $testimonials);
-            $view->with('courses', $courses);
-            $view->with('categories', $categories);
-            $view->with('blogpostcategories', $blogpostcategories);
-            $view->with('testPreparationPosts', $testPreparationPosts);
-            $view->with('livingAbroadPosts', $livingAbroadPosts);
-            $view->with('sitesetting', $sitesetting);
-        });
+            $view->with(compact(
+                'countries',
+                'testimonials',
+                'courses',
+                'categories',
+                'blogpostcategories',
+                'testPreparationPosts',
+                'livingAbroadPosts',
+                'sitesetting'
+            ));
+        }
+    });
 
-        ////Global variable for Footer
-        view()->composer('frontend.includes.footer', function ($view) {
+    view()->composer('frontend.includes.footer', function ($view) {
+        if (Schema::hasTable('site_settings') &&
+            Schema::hasTable('categories') &&
+            Schema::hasTable('services') &&
+            Schema::hasTable('courses')) {
+
             $sitesetting = SiteSetting::first();
+
             $counsellingCategory = Category::where('title', 'Counselling')->first();
-            $counsellingPosts = $counsellingCategory->posts()->take(2)->get();
+            $counsellingPosts = $counsellingCategory ? $counsellingCategory->posts()->take(2)->get() : collect();
+
             $newsCategory = Category::where('title', 'News')->first();
-            $livingAbroadPosts = Category::where('title', 'Living Abroad')->first()->posts;
+
+            $livingAbroadCategory = Category::where('title', 'Living Abroad')->first();
+            $livingAbroadPosts = $livingAbroadCategory ? $livingAbroadCategory->posts : collect();
+
             $services = Service::all();
             $courses = Course::all();
             $siteSettings = SiteSetting::first();
 
-
-            $view->with('sitesetting', $sitesetting);
-            $view->with('counsellingPosts', $counsellingPosts);
-            $view->with('newsCategory', $newsCategory);
-            $view->with('livingAbroadPosts', $livingAbroadPosts);
-            $view->with('services', $services);
-            $view->with('courses', $courses);
-            $view->with('siteSettings', $siteSettings);
-        });
-    }
-
+            $view->with(compact(
+                'sitesetting',
+                'counsellingPosts',
+                'newsCategory',
+                'livingAbroadPosts',
+                'services',
+                'courses',
+                'siteSettings'
+            ));
+        }
+    });
+}
 }
