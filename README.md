@@ -4,7 +4,7 @@ Follow these steps to set up the project environment:
 
 ---
 
-## 1. Clone the Repository
+## Clone the Repository
 
 ```bash
 git clone "https://github.com/devRajeshThapa/trademark/"
@@ -13,7 +13,7 @@ cd trademark/homedir/public_html/
 
 ---
 
-## 2. Install Required Software
+## Install Required Software
 
 Make sure you have installed the following:
 
@@ -24,7 +24,7 @@ Make sure you have installed the following:
 
 ---
 
-## 3. Setup MySQL Database
+## Setup MySQL Database
 
 Log into MySQL and create the database:
 
@@ -34,7 +34,7 @@ CREATE DATABASE trademark_database;
 
 ---
 
-## 4. Configure Environment File
+## Configure Environment File
 
 Copy the example environment file:
 
@@ -53,9 +53,16 @@ DB_PASSWORD=your_mysql_password
 
 ---
 
-## 5. Install Project Dependencies
+## Generate application key: 
 
-Install PHP dependencies via Composer:
+Copy the example environment file:
+
+```bash
+php artisan key:generate
+```
+
+
+## Install Project Dependencies
 
 ```bash
 composer install
@@ -67,7 +74,7 @@ Install Node.js dependencies:
 npm install
 ```
 
-## 6. Run Migrations and Seed the Database
+## Run Migrations and Seed the Database
 
 Run the following command to refresh your database by dropping all tables, running all migrations, and seeding the database:
 
@@ -88,7 +95,7 @@ php artisan make:migration update_favicons_table --table=favicons
 
 This will generate a migration file where you can add your schema changes (e.g., adding or modifying columns) without causing conflicts.
 
-## 7. Start the Development Server
+## Start the Development Server
 
 ```bash
 php artisan serve
