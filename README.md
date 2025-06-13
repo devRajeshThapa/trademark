@@ -67,15 +67,26 @@ Install Node.js dependencies:
 npm install
 ```
 
----
-
 ## 6. Run Migrations and Seed the Database
 
-```bash
-php artisan migrate:fresh --seed
-```
+Run the following command to refresh your database by dropping all tables, running all migrations, and seeding the database:
 
----
+~~~bash
+php artisan migrate:fresh --seed
+~~~
+
+> **Note:** If you encounter an error about the `favicons` table already existing (due to duplicate migration files), it means there are conflicting migrations trying to create the same table.
+
+To resolve this, you should:
+
+- Remove or rename any duplicate migration file that attempts to create the `favicons` table.
+- If you want to modify the existing `favicons` table, create a new migration for updating it instead of recreating it:
+
+~~~bash
+php artisan make:migration update_favicons_table --table=favicons
+~~~
+
+This will generate a migration file where you can add your schema changes (e.g., adding or modifying columns) without causing conflicts.
 
 ## 7. Start the Development Server
 
