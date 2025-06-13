@@ -45,7 +45,8 @@ cp .env.example .env
 Edit the `.env` file and update the database credentials:
 
 ```dotenv
-DB_DATABASE=trademark_database
+DB_PORT=database_port_number
+DB_DATABASE=database_name
 DB_USERNAME=your_mysql_username
 DB_PASSWORD=your_mysql_password
 ```
