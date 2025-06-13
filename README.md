@@ -1,4 +1,3 @@
-```markdown
 # Project Setup Guide
 
 Follow these steps to set up the project environment:
@@ -86,4 +85,3 @@ php artisan serve
 Visit [http://localhost:8000](http://localhost:8000) to view the app.
 
 ---
-```
