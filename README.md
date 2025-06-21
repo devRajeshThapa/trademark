@@ -53,15 +53,6 @@ DB_PASSWORD=your_mysql_password
 
 ---
 
-## Generate application key: 
-
-Copy the example environment file:
-
-```bash
-php artisan key:generate
-```
-
-
 ## Install Project Dependencies
 
 ```bash
@@ -72,6 +63,14 @@ Install Node.js dependencies:
 
 ```bash
 npm install
+```
+
+## Generate application key: 
+
+Copy the example environment file:
+
+```bash
+php artisan key:generate
 ```
 
 ## Run Migrations and Seed the Database
