@@ -29,7 +29,7 @@ Make sure you have installed the following:
 Log into MySQL and create the database:
 
 ```sql
-CREATE DATABASE trademark_database;
+CREATE DATABASE trademark;
 ```
 
 ---
